@@ -1,0 +1,263 @@
+<!-- ====== 每日健身饮食打卡助手 ====== -->
+<view class="container">
+
+  <!-- 头部 -->
+  <view class="hero">
+    <view class="hero-text">
+      <view class="eyebrow">健身计划 & 饮食安排追踪</view>
+      <view class="hero-title">每日打卡助手</view>
+      <view class="subtitle">记录训练、饮食与体重，追踪每周进度</view>
+    </view>
+    <view class="today-pill">{{todayPill}}</view>
+  </view>
+
+  <!-- ====== 每日计划面板 ====== -->
+  <view class="panel">
+    <view class="panel-heading">
+      <view class="panel-heading-title">📋 每日计划</view>
+      <view class="day-switcher">
+        <button class="arrow-btn {{planPrevDimmed ? 'dimmed' : ''}}" bindtap="onPlanPrev" size="mini">◀</button>
+        <view class="day-label">{{planLabel}}</view>
+        <button class="arrow-btn" bindtap="onPlanNext" size="mini">▶</button>
+      </view>
+    </view>
+
+    <!-- 训练卡片 -->
+    <view class="plan-card">
+      <view class="plan-card-title">
+        🏋️ 训练计划
+        <view class="badge">{{trainingCard.location}}</view>
+        <view class="badge">{{trainingCard.duration}}</view>
+      </view>
+      <view class="plan-detail"><text class="bold">热身：</text>{{trainingCard.warmup}}</view>
+      <view class="exercise-list">
+        <view class="exercise-item" wx:for="{{trainingCard.exercises}}" wx:key="name">
+          <view class="ex-name">{{item.name}}</view>
+          <view class="ex-detail">{{item.detail}}</view>
+        </view>
+      </view>
+      <view class="plan-detail"><text class="bold">整理：</text>{{trainingCard.stretch}}</view>
+    </view>
+
+    <!-- 饮食卡片 -->
+    <view class="plan-card">
+      <view class="plan-card-title">
+        🥗 饮食安排
+        <view class="badge mode-badge">{{dietCard.mode}}</view>
+      </view>
+      <view class="diet-list">
+        <view class="diet-item" wx:for="{{dietCard.meals}}" wx:key="key">
+          <text class="diet-icon">{{item.icon}}</text>
+          <text class="diet-label">{{item.label}}</text>
+          <input
+            class="diet-val"
+            value="{{item.val}}"
+            data-meal="{{item.key}}"
+            bindblur="onDietBlur"
+            placeholder="点击编辑"
+          />
+        </view>
+      </view>
+      <view class="hint-text">💡 点击文字可直接编辑，失焦自动保存</view>
+    </view>
+
+    <!-- 每日目标卡片 -->
+    <view class="plan-card goals-card">
+      <view class="plan-card-title">🎯 每日目标</view>
+      <view class="goals-row">
+        <view class="goal-item">
+          <view class="goal-val">{{proteinDisplay}}</view>
+          <view class="goal-sub" wx:if="{{proteinSub}}">{{proteinSub}}</view>
+          <view class="goal-label">蛋白质</view>
+        </view>
+        <view class="goal-item">
+          <view class="goal-val">2.5-3 L</view>
+          <view class="goal-label">饮水</view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- ====== 每周统计 ====== -->
+  <view class="panel">
+    <view class="panel-heading-title" style="margin-bottom:20rpx">📊 本周统计</view>
+    <view class="stats-grid">
+      <view class="stat-card">
+        <view class="stat-num">{{stats.trainRate}}</view>
+        <view class="stat-label">训练完成</view>
+      </view>
+      <view class="stat-card">
+        <view class="stat-num">{{stats.dietRate}}</view>
+        <view class="stat-label">饮食达标</view>
+      </view>
+      <view class="stat-card">
+        <view class="stat-num">{{stats.avgProtein}}</view>
+        <view class="stat-label">平均蛋白质/天</view>
+      </view>
+      <view class="stat-card">
+        <view class="stat-num">{{stats.avgWater}}</view>
+        <view class="stat-label">平均饮水/天</view>
+      </view>
+      <view class="stat-card">
+        <view class="stat-num">{{stats.weightTrend}}</view>
+        <view class="stat-label">体重趋势（周一对比）</view>
+      </view>
+      <view class="stat-card">
+        <view class="stat-num">{{stats.guitar}}</view>
+        <view class="stat-label">🎸 吉他练习</view>
+      </view>
+    </view>
+    <view class="vs-last-week">
+      <text class="text-muted">📈 与上周对比：</text>
+      <text>训练 {{stats.trendTrain}} · 蛋白质 {{stats.trendProtein}}</text>
+    </view>
+  </view>
+
+  <!-- ====== 月度日历 ====== -->
+  <view class="panel">
+    <view class="panel-heading">
+      <view class="panel-heading-title">📅 月度概览</view>
+      <view class="day-switcher">
+        <button class="arrow-btn" bindtap="onCalendarPrev" size="mini">◀</button>
+        <view class="day-label">{{calendarTitle}}</view>
+        <button class="arrow-btn" bindtap="onCalendarNext" size="mini">▶</button>
+      </view>
+    </view>
+    <view class="calendar-grid">
+      <view
+        class="cal-cell {{item.cls}}"
+        wx:for="{{calendarCells}}"
+        wx:key="key"
+        data-date="{{item.dateStr}}"
+        data-isday="{{item.isDay}}"
+        bindtap="onCalendarCellTap"
+      >
+        <view class="cal-num" wx:if="{{item.day}}">{{item.day}}</view>
+        <view class="cal-sub" wx:if="{{item.weightDisplay}}">{{item.weightDisplay}}</view>
+        <view class="cal-sub cal-protein" wx:if="{{item.proteinDisplay}}">{{item.proteinDisplay}}</view>
+        <view class="cal-sub cal-guitar" wx:if="{{item.guitarDisplay}}">{{item.guitarDisplay}}</view>
+      </view>
+    </view>
+    <view class="calendar-legend">📌 点击日期可编辑当天记录</view>
+  </view>
+
+  <!-- ====== 每日记录表单 ====== -->
+  <view class="panel">
+    <view class="panel-heading-title" style="margin-bottom:20rpx">✍️ 每日记录</view>
+
+    <!-- 日期选择 -->
+    <view class="form-grid">
+      <view class="form-item">
+        <view class="form-label">日期</view>
+        <picker mode="date" value="{{recordDate}}" bindchange="onDateChange">
+          <view class="picker-display">{{recordDate || '请选择日期'}}</view>
+        </picker>
+      </view>
+      <view class="form-item">
+        <view class="form-label">体重（kg）</view>
+        <input type="digit" placeholder="例如 68.5" value="{{weight}}" bindinput="onWeightInput" />
+      </view>
+      <view class="form-item">
+        <view class="form-label">蛋白质（g）</view>
+        <input type="number" placeholder="{{proteinPlaceholder}}" value="{{protein}}" bindinput="onProteinInput" />
+      </view>
+      <view class="form-item">
+        <view class="form-label">饮水（ml）</view>
+        <input type="number" placeholder="例如 2500" value="{{water}}" bindinput="onWaterInput" />
+      </view>
+      <view class="form-item">
+        <view class="form-label">🎸 吉他练习（min）</view>
+        <input type="number" placeholder="例如 30" value="{{guitarPractice}}" bindinput="onGuitarInput" />
+      </view>
+    </view>
+
+    <!-- 训练 & 补剂 & 其他 -->
+    <view class="form-section">
+      <view class="form-section-title">🏋️ 训练 & 补剂 & 其他</view>
+      <view class="checkbox-group">
+        <label class="checkbox-item">
+          <checkbox checked="{{workoutDone}}" bindchange="onWorkoutDoneChange" /> 今日训练完成
+        </label>
+        <label class="checkbox-item">
+          <checkbox checked="{{dietDone}}" bindchange="onDietDoneChange" /> 今日饮食达标
+        </label>
+        <label class="checkbox-item">
+          <checkbox checked="{{proteinShake}}" bindchange="onProteinShakeChange" /> 蛋白粉 ✓
+        </label>
+        <view class="form-item-row">
+          <text>凯格尔完成次数</text>
+          <input type="number" class="kegel-input" value="{{kegelDone}}" bindinput="onKegelInput" />
+          <text>/ 3 次</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 训练内容表格 -->
+    <view class="form-section">
+      <view class="form-section-title">📋 训练内容记录（修改组数/次数/重量为实际完成值）</view>
+      <view class="training-table">
+        <view class="tr-row tr-head">
+          <view class="tr-name-col">动作</view>
+          <input class="th-input" value="{{thSets}}" bindinput="onThSetsInput" />
+          <input class="th-input" value="{{thReps}}" bindinput="onThRepsInput" />
+          <input class="th-input th-last" value="{{thLast}}" bindinput="onThLastInput" />
+        </view>
+        <view class="tr-row" wx:for="{{trainingRecords}}" wx:key="idx" wx:for-index="idx">
+          <input class="tr-name" value="{{item.name}}" data-idx="{{idx}}" data-field="name" bindinput="onTrainingInput" />
+          <input class="tr-sets" type="number" value="{{item.sets}}" data-idx="{{idx}}" data-field="sets" bindinput="onTrainingInput" />
+          <input class="tr-reps" type="number" value="{{item.repsInt}}" data-idx="{{idx}}" data-field="reps" bindinput="onTrainingInput" />
+          <input class="tr-weight" type="digit" value="{{item.weight}}" data-idx="{{idx}}" data-field="weight" bindinput="onTrainingInput" />
+        </view>
+      </view>
+      <view class="hint-text">💡 动作名称来自当天计划，组数/次数/重量可按实际修改。有氧/核心日可留空或填 0。</view>
+    </view>
+
+    <!-- 备注 -->
+    <view class="form-item">
+      <view class="form-label">备注</view>
+      <textarea placeholder="例如：晚饭吃得太晚，感觉有点累" value="{{note}}" bindinput="onNoteInput" auto-height maxlength="200" />
+    </view>
+
+    <button class="primary-btn" bindtap="onSave">💾 保存今天的数据</button>
+  </view>
+
+  <!-- ====== 近期记录 ====== -->
+  <view class="panel">
+    <view class="panel-heading-title" style="margin-bottom:20rpx">📝 近期记录</view>
+    <view wx:if="{{historyList.length === 0}}" class="empty-text">还没有记录，先填写一条今天的数据吧 ✍️</view>
+    <view class="history-card" wx:for="{{historyList}}" wx:key="date">
+      <view class="hc-head">
+        <view class="hc-title">{{item.dayLabel}}</view>
+        <button class="btn-sm" data-date="{{item.date}}" bindtap="onEditHistory" size="mini">✏️ 编辑</button>
+      </view>
+      <view class="meta">
+        <text>体重：{{item.weight || '—'}} kg</text>
+        <text>蛋白质：{{item.protein || '—'}} g</text>
+        <text>饮水：{{item.water || '—'}} L</text>
+        <text wx:if="{{item.totalWeight}}">训练总量：{{item.totalWeightDisplay}}</text>
+        <text wx:if="{{item.guitarInfo}}">🎸 吉他：{{item.guitarInfo}}</text>
+      </view>
+      <view class="badges-row">
+        <view class="tag {{item.workoutDone ? 'tag-green' : 'tag-gray'}}">{{item.workoutDone ? '训练完成' : '训练未完成'}}</view>
+        <view class="tag tag-green" wx:if="{{item.dietDone}}">饮食达标</view>
+        <view class="tag tag-blue" wx:if="{{item.proteinShake}}">蛋白粉</view>
+        <view class="tag tag-purple" wx:if="{{item.kegelCount > 0}}">凯格尔 {{item.kegelCount}}/3</view>
+      </view>
+      <view class="note-text" wx:if="{{item.note}}">💬 {{item.note}}</view>
+    </view>
+  </view>
+
+  <!-- ====== 执行要点 ====== -->
+  <view class="panel">
+    <view class="tips-toggle" bindtap="onToggleTips">
+      📌 执行要点 <text>{{tipsOpen ? '▲' : '▼'}}</text>
+    </view>
+    <view wx:if="{{tipsOpen}}">
+      <view class="tip-item" wx:for="{{tips}}" wx:key="title">
+        <view class="tip-title">{{item.title}}</view>
+        <view class="tip-body">{{item.body}}</view>
+      </view>
+    </view>
+  </view>
+
+</view>

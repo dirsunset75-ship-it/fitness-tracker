@@ -1,0 +1,13 @@
+{
+  "pages": [
+    "pages/index/index"
+  ],
+  "window": {
+    "navigationBarTitleText": "健身饮食打卡",
+    "navigationBarBackgroundColor": "#0f0f23",
+    "navigationBarTextStyle": "white",
+    "backgroundColor": "#0f0f23"
+  },
+  "style": "v2",
+  "sitemapLocation": "sitemap.json"
+}
