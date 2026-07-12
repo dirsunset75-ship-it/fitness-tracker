@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>每日健身饮食打卡助手</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="app">
+      <!-- ====== 头部 ====== -->
+      <header class="hero">
+        <div>
+          <p class="eyebrow">健身计划 & 饮食安排追踪</p>
+          <h1>每日打卡助手</h1>
+          <p class="subtitle">把训练目标、饮食安排和实际完成情况放在同一页，方便你每天记录并查看进度。</p>
+        </div>
+        <div class="today-pill" id="todayDate">今天</div>
+      </header>
+
+      <!-- ====== 每日计划面板（可按天切换） ====== -->
+      <section class="panel">
+        <div class="panel-heading">
+          <h2>📋 每日计划</h2>
+          <div class="day-switcher">
+            <button id="planPrevBtn" class="arrow-btn" title="前一天">◀</button>
+            <span id="planDayLabel" class="day-label">周一 · 胸部+肱三头肌</span>
+            <button id="planNextBtn" class="arrow-btn" title="后一天">▶</button>
+          </div>
+        </div>
+
+        <div class="plan-grid">
+          <div class="plan-card" id="planTrainingCard">
+            <!-- JS 动态填充 -->
+          </div>
+          <div class="plan-card" id="planDietCard">
+            <!-- JS 动态填充 -->
+          </div>
+        </div>
+
+        <div class="plan-card plan-goals" id="planGoalsCard">
+          <!-- JS 动态填充 -->
+        </div>
+      </section>
+
+      <!-- ====== 每周统计 ====== -->
+      <section class="panel" id="statsPanel" style="display:none">
+        <div class="panel-heading">
+          <h2>📊 本周统计</h2>
+          <span class="text-muted">本周一至今日数据汇总</span>
+        </div>
+        <div class="stats-grid">
+          <div class="stat-card">
+            <span class="stat-num" id="statTrainRate">0/7</span>
+            <span class="stat-label">训练完成</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-num" id="statDietRate">0/7</span>
+            <span class="stat-label">饮食达标</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-num" id="statAvgProtein">—</span>
+            <span class="stat-label">平均蛋白质/天</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-num" id="statAvgWater">—</span>
+            <span class="stat-label">平均饮水/天</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-num" id="statWeightTrend">需周一称重</span>
+            <span class="stat-label">体重趋势（周一对比）</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-num" id="statGuitar">—</span>
+            <span class="stat-label">🎸 吉他练习</span>
+          </div>
+        </div>
+        <div class="vs-last-week">
+          <span class="text-muted">📈 与上周对比：</span>
+          <span id="statVsLastWeek">暂无数据</span>
+        </div>
+      </section>
+
+      <!-- ====== 月度概览 ====== -->
+      <section class="panel">
+        <div class="panel-heading">
+          <h2>📅 月度概览</h2>
+          <div class="day-switcher">
+            <button id="calendarPrevBtn" class="arrow-btn" title="上个月">◀</button>
+            <span id="calendarTitle">2026 年 7 月</span>
+            <button id="calendarNextBtn" class="arrow-btn" title="下个月">▶</button>
+          </div>
+        </div>
+        <div class="calendar-grid" id="calendarGrid">
+          <!-- JS 动态填充 -->
+        </div>
+        <p class="calendar-legend">
+          <span class="legend-info">📌 点击日期可编辑当天记录</span>
+        </p>
+      </section>
+
+      <!-- ====== 每日记录表单 ====== -->
+      <section class="panel">
+        <div class="panel-heading">
+          <h2>✍️ 每日记录</h2>
+        </div>
+        <form id="dailyForm">
+          <!-- 基础信息 -->
+          <div class="form-grid">
+            <label>
+              日期
+              <input type="date" id="recordDate" required />
+            </label>
+            <label>
+              体重（kg）
+              <input type="number" id="weight" step="0.1" placeholder="例如 68.5" />
+            </label>
+            <label>
+              蛋白质（g）
+              <input type="number" id="protein" required placeholder="请先记录体重" />
+            </label>
+            <label>
+              饮水（ml）
+              <input type="number" id="water" step="10" required placeholder="例如 2500（会自动转为 2.5L 存储）" />
+            </label>
+            <label>
+              🎸 吉他练习（min）
+              <input type="number" id="guitarPractice" min="0" step="1" placeholder="例如 30" />
+            </label>
+          </div>
+
+          <!-- 电影 & 训练 & 补剂 & 凯格尔 -->
+          <div class="form-section">
+            <span class="form-section-title">🏋️ 训练 & 补剂 & 其他</span>
+            <div class="checkbox-group">
+              <label><input type="checkbox" id="workoutDone" /> 今日训练完成</label>
+              <label><input type="checkbox" id="dietDone" /> 今日饮食达标</label>
+              <label><input type="checkbox" id="proteinShake" /> 蛋白粉 ✓</label>
+              <label>凯格尔完成次数 <input type="number" id="kegelDone" min="0" max="3" step="1" value="0" style="width:70px" /> / 3 次</label>
+            </div>
+          </div>
+
+          <!-- 训练内容表格 -->
+          <div class="form-section">
+            <span class="form-section-title">📋 训练内容记录（修改组数/次数/重量为实际完成值）</span>
+            <div class="table-wrap">
+              <table class="training-table">
+                <thead>
+                  <tr>
+                    <th class="col-name">动作</th>
+                    <th class="col-num"><input type="text" class="th-input" id="thSets" value="组数" /></th>
+                    <th class="col-num"><input type="text" class="th-input" id="thReps" value="次数" /></th>
+                    <th class="col-num col-weight"><input type="text" class="th-input" id="thLast" value="重量 (kg)" /></th>
+                  </tr>
+                </thead>
+                <tbody id="trainingTableBody">
+                  <!-- JS 动态填充 -->
+                </tbody>
+              </table>
+            </div>
+            <p class="table-hint">💡 动作名称来自当天计划，组数/次数/重量可按实际修改。有氧/核心日可留空或填 0。</p>
+          </div>
+
+          <!-- 备注 -->
+          <label>
+            备注
+            <textarea id="note" rows="2" placeholder="例如：晚饭吃得太晚，感觉有点累"></textarea>
+          </label>
+
+          <button type="submit" class="primary-btn">💾 保存今天的数据</button>
+        </form>
+      </section>
+
+      <!-- ====== 近期记录 ====== -->
+      <section class="panel">
+        <div class="panel-heading">
+          <h2>📝 近期记录</h2>
+        </div>
+        <div id="historyList" class="history-list"></div>
+      </section>
+
+      <!-- ====== 执行要点（可折叠） ====== -->
+      <section class="panel tips-panel">
+        <button id="tipsToggle" class="tips-toggle">📌 执行要点 ▼</button>
+        <div id="tipsBody" class="tips-body">
+          <!-- JS 动态填充 -->
+        </div>
+      </section>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>

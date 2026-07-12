@@ -1,0 +1,950 @@
+/* ================================================================
+   健身饮食追踪助手 — 样式
+   浅色主题 · 响应式 · 移动友好
+   ================================================================ */
+
+:root {
+  color-scheme: light;
+  --bg: #f4f7fb;
+  --panel: #ffffff;
+  --primary: #2563eb;
+  --primary-light: #eef4ff;
+  --secondary: #0f766e;
+  --text: #152238;
+  --muted: #6b7280;
+  --border: #dbe4f0;
+  --success: #22c55e;
+  --success-light: #f0fdf4;
+  --warning: #f59e0b;
+  --warning-light: #fffbeb;
+  --purple: #7c3aed;
+  --purple-light: #f5f3ff;
+  --radius: 16px;
+  --shadow: 0 8px 24px rgba(15, 23, 42, 0.04);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Segoe UI", "PingFang SC", "Microsoft YaHei", Arial, sans-serif;
+  background: linear-gradient(135deg, #eef5ff 0%, #f7fbff 100%);
+  color: var(--text);
+  line-height: 1.6;
+}
+
+.app {
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 24px;
+}
+
+/* ---------- 头部 ---------- */
+
+.hero {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  padding: 24px;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(37, 99, 235, 0.08);
+}
+
+.eyebrow {
+  margin: 0 0 8px;
+  color: var(--primary);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+}
+
+h1, h2, h3, p { margin-top: 0; }
+
+.subtitle {
+  color: var(--muted);
+  margin-bottom: 0;
+  max-width: 640px;
+}
+
+.today-pill {
+  background: linear-gradient(135deg, var(--primary), #4f46e5);
+  color: white;
+  padding: 12px 16px;
+  border-radius: 999px;
+  font-weight: 700;
+  white-space: nowrap;
+  font-size: 0.95rem;
+}
+
+/* ---------- 面板 ---------- */
+
+.panel {
+  margin-top: 20px;
+  padding: 20px;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  box-shadow: var(--shadow);
+}
+
+.panel-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.panel-heading h2 {
+  margin-bottom: 0;
+}
+
+.text-muted {
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+/* ---------- 日期切换器 ---------- */
+
+.day-switcher {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.day-label {
+  font-weight: 700;
+  font-size: 1rem;
+  min-width: 200px;
+  text-align: center;
+  color: var(--text);
+}
+
+.arrow-btn {
+  width: 36px;
+  height: 36px;
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  background: var(--panel);
+  cursor: pointer;
+  font-size: 0.9rem;
+  color: var(--text);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s;
+}
+
+.arrow-btn:hover {
+  background: var(--primary-light);
+  border-color: var(--primary);
+  color: var(--primary);
+}
+
+.arrow-btn.dimmed {
+  opacity: 0.3;
+  pointer-events: none;
+}
+
+/* ---------- 计划卡片 ---------- */
+
+.plan-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+.plan-card {
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 16px;
+  background: #fbfdff;
+}
+
+.plan-card h3 {
+  font-size: 1rem;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.plan-goals {
+  margin-top: 14px;
+}
+
+.badge {
+  display: inline-block;
+  background: var(--primary-light);
+  color: var(--primary);
+  font-size: 0.78rem;
+  font-weight: 600;
+  padding: 2px 10px;
+  border-radius: 999px;
+}
+
+.badge.mode {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.plan-detail {
+  font-size: 0.9rem;
+  color: var(--muted);
+  margin-bottom: 8px;
+}
+
+/* 训练动作列表 */
+.exercise-list {
+  list-style: none;
+  padding: 0;
+  margin: 8px 0;
+}
+
+.exercise-list li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6px 10px;
+  margin-bottom: 4px;
+  background: var(--primary-light);
+  border-radius: 8px;
+  font-size: 0.9rem;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.ex-name {
+  font-weight: 600;
+  color: var(--text);
+}
+
+.ex-detail {
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+/* 饮食列表 */
+.diet-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.diet-list li {
+  display: flex;
+  gap: 8px;
+  padding: 5px 0;
+  font-size: 0.9rem;
+  border-bottom: 1px dashed var(--border);
+}
+
+.diet-list li:last-child { border-bottom: none; }
+
+.diet-list li strong {
+  white-space: nowrap;
+  color: var(--text);
+  min-width: 60px;
+}
+
+.diet-list li span {
+  color: var(--muted);
+}
+
+.diet-val {
+  cursor: text;
+  padding: 2px 6px;
+  border-radius: 6px;
+  border: 1px solid transparent;
+  transition: border-color 0.15s, background 0.15s;
+}
+
+.diet-val:hover {
+  border-color: var(--border);
+  background: #fafcff;
+}
+
+.diet-val:focus {
+  border-color: var(--primary);
+  background: white;
+  outline: none;
+  color: var(--text) !important;
+}
+
+/* 目标行 */
+.goals-row {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+}
+
+.goal-item {
+  text-align: center;
+  padding: 10px;
+  background: var(--primary-light);
+  border-radius: 10px;
+}
+
+.goal-val {
+  display: block;
+  font-weight: 700;
+  font-size: 1.15rem;
+  color: var(--primary);
+}
+
+.goal-sub {
+  display: block;
+  font-size: 0.7rem;
+  color: var(--muted);
+  font-weight: 500;
+}
+
+.goal-label {
+  display: block;
+  font-size: 0.8rem;
+  color: var(--muted);
+  margin-top: 2px;
+}
+
+/* ---------- 每周统计 ---------- */
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+
+.stat-card {
+  text-align: center;
+  padding: 16px 10px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: #fbfdff;
+}
+
+.stat-num {
+  display: block;
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: var(--primary);
+}
+
+.stat-label {
+  display: block;
+  font-size: 0.85rem;
+  color: var(--muted);
+  margin-top: 4px;
+}
+
+.vs-last-week {
+  margin-top: 14px;
+  padding: 10px 14px;
+  background: var(--primary-light);
+  border-radius: 10px;
+  font-size: 0.9rem;
+}
+
+.vs-last-week span {
+  margin-right: 12px;
+  font-weight: 600;
+}
+
+/* ---------- 月度日历 ---------- */
+
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 4px;
+}
+
+.cal-cell {
+  min-height: 52px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  border-radius: 10px;
+  font-size: 0.8rem;
+  position: relative;
+  cursor: default;
+  padding: 3px 2px;
+}
+
+.cal-header {
+  font-weight: 700;
+  color: var(--muted);
+  font-size: 0.8rem;
+  min-height: unset;
+  padding: 4px 0;
+}
+
+.cal-empty {
+  background: transparent;
+  min-height: 52px;
+}
+
+.cal-day {
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: all 0.15s;
+}
+
+.cal-day:hover {
+  background: var(--primary-light);
+  border-color: var(--primary);
+}
+
+.cal-today {
+  border: 2px solid var(--primary) !important;
+  font-weight: 700;
+}
+
+.cal-done {
+  background: var(--success-light);
+}
+
+.cal-has-record {
+  background: #fefce8;
+}
+
+.cal-num {
+  font-weight: 700;
+  font-size: 0.85rem;
+  line-height: 1.2;
+}
+
+.cal-sub {
+  font-size: 0.62rem;
+  font-weight: 600;
+  color: var(--secondary);
+  line-height: 1.2;
+  white-space: nowrap;
+}
+
+.cal-protein {
+  color: var(--primary);
+}
+
+.cal-guitar {
+  color: #c2410c;
+}
+
+.cal-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--success);
+  position: absolute;
+  bottom: 3px;
+}
+
+.cal-has-record .cal-dot {
+  background: var(--warning);
+}
+
+.calendar-legend {
+  display: flex;
+  gap: 16px;
+  margin-top: 10px;
+  font-size: 0.8rem;
+  color: var(--muted);
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.legend-dot {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  margin-right: 4px;
+}
+
+.dot-done { background: var(--success); }
+.dot-record { background: var(--warning); }
+.dot-none { background: #d1d5db; }
+
+.legend-info {
+  margin-left: auto;
+  font-style: italic;
+}
+
+/* ---------- 表单 ---------- */
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+label {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+input,
+textarea {
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  font-size: 1rem;
+  outline: none;
+  font-family: inherit;
+}
+
+input:focus,
+textarea:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+}
+
+.form-section {
+  margin: 16px 0;
+  padding: 12px 14px;
+  border: 1px dashed var(--border);
+  border-radius: 12px;
+  background: #fafcff;
+}
+
+.form-section-title {
+  display: block;
+  font-weight: 700;
+  font-size: 0.9rem;
+  margin-bottom: 8px;
+  color: var(--text);
+}
+
+.checkbox-group {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.checkbox-group label {
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.checkbox-group input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--primary);
+  cursor: pointer;
+}
+
+.primary-btn {
+  border: none;
+  padding: 12px 24px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, var(--primary), #4f46e5);
+  color: white;
+  font-weight: 700;
+  font-size: 1rem;
+  cursor: pointer;
+  margin-top: 12px;
+  width: 100%;
+  transition: filter 0.2s;
+}
+
+.primary-btn:hover {
+  filter: brightness(1.08);
+}
+
+.primary-btn:active {
+  transform: scale(0.98);
+}
+
+/* ---------- 训练表格 ---------- */
+
+.table-wrap {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.training-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+.training-table thead th {
+  background: var(--primary-light);
+  color: var(--primary);
+  font-weight: 700;
+  padding: 4px 6px;
+  text-align: center;
+  font-size: 0.82rem;
+  border-bottom: 2px solid var(--primary);
+}
+
+.th-input {
+  width: 100%;
+  padding: 4px 6px;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  text-align: center;
+  font-weight: 700;
+  font-size: 0.82rem;
+  font-family: inherit;
+  color: var(--primary);
+  background: transparent;
+  transition: border-color 0.15s, background 0.15s;
+}
+
+.th-input:focus {
+  border-color: var(--primary);
+  background: white;
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.12);
+}
+
+.training-table tbody td {
+  padding: 6px 8px;
+  border-bottom: 1px solid var(--border);
+  vertical-align: middle;
+}
+
+.training-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.col-name {
+  width: 45%;
+  text-align: left !important;
+}
+
+.col-num {
+  width: 18%;
+}
+
+.tr-name {
+  width: 100%;
+  padding: 6px 8px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  font-family: inherit;
+  color: var(--text);
+  background: transparent;
+}
+
+.tr-name:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.1);
+  outline: none;
+  background: white;
+}
+
+.ex-name-cell {
+  font-weight: 600;
+  color: var(--text);
+  font-size: 0.88rem;
+}
+
+.training-table input[type="number"] {
+  width: 100%;
+  padding: 6px 4px;
+  text-align: center;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  font-size: 0.88rem;
+  font-weight: 500;
+}
+
+.training-table input[type="number"]:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.1);
+}
+
+.table-hint {
+  margin: 8px 0 0;
+  font-size: 0.78rem;
+  color: var(--muted);
+}
+
+/* ---------- 历史记录 ---------- */
+
+.history-list {
+  display: grid;
+  gap: 12px;
+}
+
+.history-card {
+  padding: 14px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: #fdfefe;
+}
+
+.hc-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.hc-head strong {
+  color: var(--primary);
+  font-size: 0.95rem;
+}
+
+.btn-sm {
+  border: 1px solid var(--border);
+  background: var(--panel);
+  padding: 4px 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.8rem;
+  color: var(--muted);
+  transition: all 0.15s;
+}
+
+.btn-sm:hover {
+  border-color: var(--primary);
+  color: var(--primary);
+  background: var(--primary-light);
+}
+
+.meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  color: var(--muted);
+  font-size: 0.9rem;
+  margin-top: 8px;
+}
+
+.badges-row {
+  gap: 6px;
+}
+
+.tag {
+  display: inline-block;
+  padding: 2px 10px;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  font-weight: 600;
+}
+
+.tag-green { background: var(--success-light); color: #166534; }
+.tag-gray  { background: #f3f4f6; color: var(--muted); }
+.tag-blue  { background: var(--primary-light); color: var(--primary); }
+.tag-purple { background: var(--purple-light); color: var(--purple); }
+
+.note-text {
+  margin-top: 8px;
+  color: var(--muted);
+  font-size: 0.9rem;
+  font-style: italic;
+}
+
+.training-detail {
+  margin-top: 8px;
+}
+
+.training-detail summary {
+  cursor: pointer;
+  color: var(--primary);
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+/* 历史记录中的迷你表格 */
+.mini-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.82rem;
+  margin-top: 6px;
+}
+
+.mini-table th {
+  background: #f8fafc;
+  padding: 4px 8px;
+  text-align: center;
+  font-size: 0.75rem;
+  color: var(--muted);
+  border-bottom: 1px solid var(--border);
+}
+
+.mini-table td {
+  padding: 3px 8px;
+  text-align: center;
+  border-bottom: 1px dashed var(--border);
+}
+
+.mini-table td:first-child {
+  text-align: left;
+  font-weight: 500;
+}
+
+.empty {
+  color: var(--muted);
+  text-align: center;
+  padding: 24px;
+  border: 1px dashed var(--border);
+  border-radius: var(--radius);
+}
+
+/* ---------- 执行要点 ---------- */
+
+.tips-panel {
+  padding: 0;
+  overflow: hidden;
+}
+
+.tips-toggle {
+  width: 100%;
+  padding: 16px 20px;
+  border: none;
+  background: none;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  text-align: left;
+  color: var(--text);
+  font-family: inherit;
+}
+
+.tips-toggle:hover {
+  background: #fafcff;
+}
+
+.tips-body {
+  display: none;
+  padding: 0 20px 16px;
+}
+
+.tips-body.open {
+  display: block;
+}
+
+.tip-item {
+  padding: 10px 14px;
+  margin-bottom: 8px;
+  background: #fbfdff;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+}
+
+.tip-item strong {
+  display: block;
+  margin-bottom: 4px;
+  color: var(--primary);
+  font-size: 0.9rem;
+}
+
+.tip-item p {
+  margin: 0;
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+/* ---------- Toast ---------- */
+
+.toast {
+  position: fixed;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%) translateY(100px);
+  background: #1e293b;
+  color: white;
+  padding: 12px 24px;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  z-index: 999;
+  opacity: 0;
+  transition: all 0.3s ease;
+  pointer-events: none;
+}
+
+.toast.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* ---------- 响应式 ---------- */
+
+@media (max-width: 760px) {
+  .app { padding: 12px; }
+
+  .hero {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .plan-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .day-label {
+    min-width: 130px;
+    font-size: 0.82rem;
+  }
+
+  .cal-cell {
+    min-height: 46px;
+    font-size: 0.65rem;
+  }
+
+  .cal-sub {
+    font-size: 0.55rem;
+  }
+
+  .cal-num {
+    font-size: 0.72rem;
+  }
+
+  .checkbox-group {
+    gap: 12px;
+  }
+
+  .training-table {
+    font-size: 0.78rem;
+  }
+
+  .training-table input[type="number"] {
+    font-size: 0.78rem;
+    padding: 4px 2px;
+  }
+}
+
+@media (max-width: 400px) {
+  .stats-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .checkbox-group {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .cal-cell {
+    min-height: 40px;
+  }
+
+  .cal-sub {
+    display: none; /* 在小屏幕隐藏日历详情 */
+  }
+}
